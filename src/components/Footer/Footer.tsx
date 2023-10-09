@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
-	const { isVerySmallScreen, isSmallScreen } = useContext(MediaQueryContext);
+	const { isVerySmallScreen } = useContext(MediaQueryContext);
 
 	return (
 		<Box
@@ -12,8 +12,9 @@ const Footer = () => {
 				display: 'flex',
 				justifyContent: 'space-between',
 				alignItems: 'center',
-				height: isVerySmallScreen ? '6vh' : isSmallScreen ? '8vh' : '10vh',
+				height: isVerySmallScreen ? '8vh' : '10vh',
 				padding: '0 1rem',
+				borderTop: 'solid 0.1rem #fad2d2',
 			}}>
 			<Typography>Balci Store @ React - TS</Typography>
 			<Link to='/contact-us' style={{ textDecoration: 'none', color: 'coral' }}>
