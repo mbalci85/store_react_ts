@@ -5,7 +5,11 @@ interface MediaQueryContextProviderProps {
 	children: ReactNode;
 }
 
-export const MediaQueryContext = createContext({});
+export const MediaQueryContext = createContext<{
+	isVerySmallScreen: boolean;
+	isSmallScreen: boolean;
+	isMediumScreen: boolean;
+}>({ isVerySmallScreen: false, isMediumScreen: false, isSmallScreen: false });
 
 const MediaQueryContextProvider = (props: MediaQueryContextProviderProps) => {
 	const isVerySmallScreen = useMediaQuery('(max-width: 415px)');

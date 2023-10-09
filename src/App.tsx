@@ -9,6 +9,7 @@ import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Footer from './components/Footer/Footer';
 import Checkout from './pages/Checkout/Checkout';
 import ContactUs from './pages/ContactUs/ContactUs';
+import MediaQueryContextProvider from './contexts/MediaQueryContextProvider';
 
 const App: React.FC = () => {
 	const pageStyle: React.CSSProperties = {
@@ -21,17 +22,19 @@ const App: React.FC = () => {
 	};
 	return (
 		<Box sx={pageStyle}>
-			<Router>
-				<Header />
-				<Routes>
-					<Route path='/' element={<HomePage />} />
-					<Route path='/about' element={<About />} />
-					<Route path='product-detail/:id' element={<ProductDetail />} />
-					<Route path='/checkout' element={<Checkout/>}/>
-					<Route path='/contact-us' element={<ContactUs/>}/>
-				</Routes>
-				<Footer />
-			</Router>
+			<MediaQueryContextProvider>
+				<Router>
+					<Header />
+					<Routes>
+						<Route path='/' element={<HomePage />} />
+						<Route path='/about' element={<About />} />
+						<Route path='product-detail/:id' element={<ProductDetail />} />
+						<Route path='/checkout' element={<Checkout />} />
+						<Route path='/contact-us' element={<ContactUs />} />
+					</Routes>
+					<Footer />
+				</Router>
+			</MediaQueryContextProvider>
 		</Box>
 	);
 };
