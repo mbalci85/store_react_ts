@@ -2,9 +2,12 @@ import { useContext } from 'react';
 import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { ProductContext } from '../../contexts/ProductsContextProvider';
 
 const HomePage = () => {
 	const { isVerySmallScreen } = useContext(MediaQueryContext);
+	const { products, setSelectedCategoryProducts, setSelectedCategory } =
+		useContext(ProductContext);
 	return (
 		<Box
 			sx={{
@@ -28,6 +31,10 @@ const HomePage = () => {
 					padding: '0.3rem',
 					borderRadius: '0.2rem',
 					boxShadow: '0 0 0.1rem 0.2rem rgba(0, 0.1, 0.1, 0.1)',
+				}}
+				onClick={() => {
+					setSelectedCategoryProducts(products);
+					setSelectedCategory('All');
 				}}>
 				See Products
 			</Link>
