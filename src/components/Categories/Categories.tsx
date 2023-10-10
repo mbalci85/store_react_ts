@@ -11,10 +11,6 @@ const Categories = () => {
 		useContext(ProductContext);
 	const { isSmallScreen } = useContext(MediaQueryContext);
 
-	const handleFilter = () => {
-		
-	};
-
 	return (
 		<>
 			{categories &&

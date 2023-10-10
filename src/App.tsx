@@ -12,6 +12,7 @@ import MediaQueryContextProvider from './contexts/MediaQueryContextProvider';
 import Products from './pages/Products/Products';
 import CategoriesContextProvider from './contexts/CategoriesContextProvider';
 import ProductsContextProvider from './contexts/ProductsContextProvider';
+import CartItemContextProvider from './contexts/CartItemContextProvider';
 
 const App = () => {
 	return (
@@ -24,27 +25,29 @@ const App = () => {
 				backgroundPosition: 'center center',
 				minHeight: '100vh',
 			}}>
-			<ProductsContextProvider>
-				<MediaQueryContextProvider>
-					<CategoriesContextProvider>
-						<Router>
-							<Header />
-							<Routes>
-								<Route path='/' element={<HomePage />} />
-								<Route path='/about' element={<About />} />
-								<Route path='/products' element={<Products />} />
-								<Route
-									path='product-detail/:id'
-									element={<ProductDetail />}
-								/>
-								<Route path='/checkout' element={<Checkout />} />
-								<Route path='/contact-us' element={<ContactUs />} />
-							</Routes>
-							<Footer />
-						</Router>
-					</CategoriesContextProvider>
-				</MediaQueryContextProvider>
-			</ProductsContextProvider>
+			<CartItemContextProvider>
+				<ProductsContextProvider>
+					<MediaQueryContextProvider>
+						<CategoriesContextProvider>
+							<Router>
+								<Header />
+								<Routes>
+									<Route path='/' element={<HomePage />} />
+									<Route path='/about' element={<About />} />
+									<Route path='/products' element={<Products />} />
+									<Route
+										path='product-detail/:id'
+										element={<ProductDetail />}
+									/>
+									<Route path='/checkout' element={<Checkout />} />
+									<Route path='/contact-us' element={<ContactUs />} />
+								</Routes>
+								<Footer />
+							</Router>
+						</CategoriesContextProvider>
+					</MediaQueryContextProvider>
+				</ProductsContextProvider>
+			</CartItemContextProvider>
 		</Box>
 	);
 };
