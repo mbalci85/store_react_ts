@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
-import { Box, IconButton, Toolbar, Badge, AppBar } from '@mui/material';
+import { Box, IconButton, Toolbar, Badge, AppBar, Tooltip } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link, useNavigate } from 'react-router-dom';
 import { CartItemContext } from '../../contexts/CartItemContextProvider';
@@ -24,16 +24,18 @@ const Header = () => {
 					<Link to='/' style={{ textDecoration: 'none', color: 'coral' }}>
 						Balci Store
 					</Link>
-					<IconButton>
-						<Badge badgeContent={cartItemsIds.length} color='error'>
-							<ShoppingCartIcon
-								fontSize={isVerySmallScreen ? 'medium' : 'large'}
-								onClick={() => {
-									navigate('/checkout');
-								}}
-							/>
-						</Badge>
-					</IconButton>
+					<Tooltip title='Go to Checkout' placement='left'>
+						<IconButton>
+							<Badge badgeContent={cartItemsIds.length} color='error'>
+								<ShoppingCartIcon
+									fontSize={isVerySmallScreen ? 'medium' : 'large'}
+									onClick={() => {
+										navigate('/checkout');
+									}}
+								/>
+							</Badge>
+						</IconButton>
+					</Tooltip>
 				</Toolbar>
 			</AppBar>
 		</Box>
