@@ -1,15 +1,24 @@
-import { useContext } from 'react';
 import { Product } from '../../interfaces/product';
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
-import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
+import {
+	Card,
+	CardContent,
+	CardMedia,
+	IconButton,
+	Tooltip,
+	Typography,
+} from '@mui/material';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CartItemContext } from '../../contexts/CartItemContextProvider';
 
 interface ProductCardProps {
 	product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-	const isVerySmallScreen = useContext(MediaQueryContext);
+	const { cartItemsIds, handleCartItems } = useContext(CartItemContext);
 	return (
 		<Card
 			sx={{
@@ -19,14 +28,32 @@ const ProductCard = ({ product }: ProductCardProps) => {
 				width: '20rem',
 				margin: '2rem 1rem',
 				boxShadow: '0.1rem 0 0.1rem 0.1rem rgba(0, 0, 0, 0.2)',
+				position: 'relative',
 			}}>
+			<Tooltip
+				title={
+					cartItemsIds.includes(+product.id)
+						? 'Remove from Cart'
+						: 'Add to Cart'
+				}
+				placement='top'>
+				<IconButton
+					sx={{ position: 'absolute', top: 0, left: 0 }}
+					onClick={() => handleCartItems(+product.id)}>
+					{cartItemsIds.includes(+product.id) ? (
+						<RemoveCircleOutlineIcon sx={{ color: 'red' }} />
+					) : (
+						<AddCircleOutlineIcon />
+					)}
+				</IconButton>
+			</Tooltip>
 			<CardMedia
 				component='img'
 				image={product.image}
 				title={product.title}
 				sx={{
 					height: '15rem',
-					width: '80%',
+					width: '75%',
 					margin: '1rem',
 					objectFit: 'contain',
 					alignSelf: 'center',

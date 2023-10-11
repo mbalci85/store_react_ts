@@ -10,6 +10,7 @@ const Categories = () => {
 	const { handleSelectedCategoryProducts, selectedCategory } =
 		useContext(ProductContext);
 	const { isSmallScreen } = useContext(MediaQueryContext);
+
 	return (
 		<>
 			{categories &&
@@ -20,7 +21,6 @@ const Categories = () => {
 						{categories.map((category) => {
 							return (
 								<Button
-									variant='text'
 									key={category}
 									sx={{
 										marginLeft: '0.5rem',

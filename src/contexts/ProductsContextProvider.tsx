@@ -37,7 +37,7 @@ const ProductsContextProvider = (props: ProductsContextProviderProps) => {
 		'https://fakestoreapi.com/products/category';
 
 	const [products, setProducts] = useState<Products>([]);
-	const [selectedCategory, setSelectedCategory] = useState('');
+	const [selectedCategory, setSelectedCategory] = useState<string>('');
 	const [selectedCategoryProducts, setSelectedCategoryProducts] =
 		useState<SelectedCategoryProducts>([]);
 
