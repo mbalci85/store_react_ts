@@ -4,12 +4,14 @@ import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Product } from '../../interfaces/product';
+import { CartItemContext } from '../../contexts/CartItemContextProvider';
 
 const ProductDetail = () => {
 	const [product, setProduct] = useState<Product>();
 
 	const { isVerySmallScreen, isSmallScreen, isMediumScreen } =
 		useContext(MediaQueryContext);
+	const { cartItemsIds, handleCartItems } = useContext(CartItemContext);
 	const { id } = useParams();
 
 	const productUrl = 'https://fakestoreapi.com/products';
@@ -128,8 +130,13 @@ const ProductDetail = () => {
 									width: '80%',
 									marginTop: '1.5rem',
 									alignSelf: isSmallScreen ? 'center' : null,
+								}}
+								onClick={() => {
+									handleCartItems(+product.id);
 								}}>
-								Add to Cart
+								{cartItemsIds.includes(+product.id)
+									? 'Remove from Cart'
+									: 'Add to Cart'}
 							</Button>
 						</CardContent>
 					</Card>
