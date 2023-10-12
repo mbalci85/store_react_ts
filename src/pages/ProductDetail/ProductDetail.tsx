@@ -76,6 +76,7 @@ const ProductDetail = () => {
 								display: 'flex',
 								flexDirection: 'column',
 								justifyContent: 'space-between',
+								marginLeft: '2rem',
 							}}>
 							<Typography
 								sx={{
@@ -126,10 +127,14 @@ const ProductDetail = () => {
 							<Button
 								variant='outlined'
 								sx={{
-									backgroundColor: 'lightcoral',
+									backgroundColor: cartItemsIds.includes(+product.id)
+										? 'red'
+										: 'coral',
 									width: '80%',
 									marginTop: '1.5rem',
 									alignSelf: isSmallScreen ? 'center' : null,
+									fontWeight: 'bolder',
+									color: 'black',
 								}}
 								onClick={() => {
 									handleCartItems(+product.id);
