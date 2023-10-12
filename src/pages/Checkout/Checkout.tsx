@@ -1,14 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { CartItemContext } from '../../contexts/CartItemContextProvider';
 import CartItem from '../../components/CartItem/CartItem';
 
 const Checkout = () => {
 	const { isVerySmallScreen, isSmallScreen } = useContext(MediaQueryContext);
-	const { cartItemsIds, handleCartItems, cartItems, balance } =
+	const { cartItemsIds, handleCartItems, cartItems, balance, setBalance } =
 		useContext(CartItemContext);
-
 	const headerGenerator = (width: string, title: string) => {
 		return (
 			<Typography
@@ -16,9 +15,9 @@ const Checkout = () => {
 					width: { width },
 					textAlign: 'center',
 					fontSize: isVerySmallScreen
-						? '0.7rem'
+						? '0.85rem'
 						: isSmallScreen
-						? '1rem'
+						? '1.1rem'
 						: '1.25rem',
 					color: 'gray',
 					fontWeight: 'bold',
@@ -27,6 +26,10 @@ const Checkout = () => {
 			</Typography>
 		);
 	};
+
+	useEffect(() => {
+		setBalance(cartItems.reduce((sum, item) => sum + item.price, 0));
+	}, []);
 
 	return (
 		<>
@@ -54,24 +57,41 @@ const Checkout = () => {
 					<Box sx={{ backgroundColor: 'white', margin: '3rem 0 2rem 0' }}>
 						<Box sx={{ display: 'flex' }}>
 							{headerGenerator('40vw', 'Item')}
-							{headerGenerator('12vw', 'Price')}
-							{headerGenerator('12vw', 'Qty')}
-							{headerGenerator('12vw', 'Remove')}
+							{headerGenerator('12vw', '£')}
+							{headerGenerator('12vw', '#')}
 							{headerGenerator('12vw', 'Total')}
+							{headerGenerator('12vw', '')}
 						</Box>
 						<Box>
 							{cartItems.map((cartItem) => {
+								cartItem.quantity = 1;
 								return (
 									<CartItem
 										key={cartItem.id}
 										cartItem={cartItem}
 										handleCartItems={handleCartItems}
+										setBalance={setBalance}
+										balance={balance}
 									/>
 								);
 							})}
 						</Box>
 					</Box>
-					<Typography>Total £{balance.toFixed(2)} </Typography>
+					<Box
+						sx={{
+							display: 'flex',
+							flexDirection: 'column',
+							alignSelf: 'flex-end',
+							alignItems: 'center',
+							margin: '0 1.5rem 2rem 0',
+						}}>
+						<Typography variant='body2' sx={{ marginBottom: '0.3rem' }}>
+							Total £{balance.toFixed(2)}{' '}
+						</Typography>
+						<Button variant='contained' size='small'>
+							Check Out
+						</Button>
+					</Box>
 				</Box>
 			)}
 		</>

@@ -13,6 +13,7 @@ interface CartItemContextTypes {
 	handleCartItems: (id: number) => void;
 	cartItems: product[];
 	balance: number;
+	setBalance: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const CartItemContext = createContext<CartItemContextTypes>({
@@ -20,6 +21,7 @@ export const CartItemContext = createContext<CartItemContextTypes>({
 	handleCartItems: () => {},
 	cartItems: [],
 	balance: 0,
+	setBalance: () => {},
 });
 
 const CartItemContextProvider = (props: CartItemContextProviderProps) => {
@@ -68,8 +70,6 @@ const CartItemContextProvider = (props: CartItemContextProviderProps) => {
 		)
 			.then((results) => {
 				setCartItems(results);
-				const totalPayment = results.reduce((sum, item) => sum + item.price, 0);
-				setBalance(totalPayment);
 			})
 			.catch((error: any) => {
 				if (error.response && error.response.status === 404) {
@@ -77,9 +77,10 @@ const CartItemContextProvider = (props: CartItemContextProviderProps) => {
 				}
 			});
 	}, [cartItemsIds]);
+	
 	return (
 		<CartItemContext.Provider
-			value={{ cartItemsIds, handleCartItems, cartItems, balance }}>
+			value={{ cartItemsIds, handleCartItems, cartItems, balance, setBalance }}>
 			{props.children}
 		</CartItemContext.Provider>
 	);

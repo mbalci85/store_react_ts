@@ -1,5 +1,5 @@
 import { Box, CardMedia, IconButton, Typography } from '@mui/material';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Product } from '../../interfaces/product';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
@@ -7,10 +7,23 @@ import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
 interface CartItemProps {
 	cartItem: Product;
 	handleCartItems: (id: number) => void;
+	setBalance: (amount: number) => void;
+	balance: number;
 }
 
-const CartItem = ({ cartItem, handleCartItems }: CartItemProps) => {
+const CartItem = ({ cartItem, handleCartItems, setBalance, balance }: CartItemProps) => {
 	// const { isVerySmallScreen, isSmallScreen } = useContext(MediaQueryContext);
+
+	const [quantity, setQuantity] = useState<number>(1);
+
+	const handleBalance = (qty: number) => {
+		const newQuantity = qty;
+		const updatedTotal = newQuantity * cartItem.price;
+		const updatedBalance = balance - quantity * cartItem.price + updatedTotal;
+
+		setBalance(updatedBalance);
+		setQuantity(newQuantity);
+	};
 
 	const boxGenerator = (width: string, value: number) => {
 		return (
@@ -56,13 +69,30 @@ const CartItem = ({ cartItem, handleCartItems }: CartItemProps) => {
 				<Typography sx={{ fontSize: '0.6rem' }}>{cartItem.title}</Typography>
 			</Box>
 			{boxGenerator('12vw', cartItem.price)}
-			{boxGenerator('12vw', 1)}
+			{/* {boxGenerator('12vw', 1)} */}
+			<Box sx={{ width: '12vw', textAlign: 'center' }}>
+				<input
+					type='number'
+					min='1'
+					style={{ width: '6vw', textAlign: 'center' }}
+					value={quantity}
+					onChange={(e) => {
+						setQuantity(+e.target.value);
+						cartItem.quantity = +e.target.value;
+						handleBalance(+e.target.value);
+					}}
+				/>
+			</Box>
+			{boxGenerator('12vw', +(cartItem.price * quantity).toFixed(2))}
 			<Box sx={{ width: '12vw' }}>
-				<IconButton onClick={() => handleCartItems(+cartItem.id)}>
+				<IconButton
+					onClick={() => {
+						handleCartItems(+cartItem.id);
+						setBalance(balance - cartItem.price * quantity);
+					}}>
 					<DeleteIcon fontSize='small' />
 				</IconButton>
 			</Box>
-			{boxGenerator('12vw', cartItem.price * 1)}
 		</Box>
 	);
 };
