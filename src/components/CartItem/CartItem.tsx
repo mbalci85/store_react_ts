@@ -69,7 +69,6 @@ const CartItem = ({ cartItem, handleCartItems, setBalance, balance }: CartItemPr
 				<Typography sx={{ fontSize: '0.6rem' }}>{cartItem.title}</Typography>
 			</Box>
 			{boxGenerator('12vw', cartItem.price)}
-			{/* {boxGenerator('12vw', 1)} */}
 			<Box sx={{ width: '12vw', textAlign: 'center' }}>
 				<input
 					type='number'

@@ -12,22 +12,19 @@ interface CartItemContextTypes {
 	cartItemsIds: number[];
 	handleCartItems: (id: number) => void;
 	cartItems: product[];
-	balance: number;
-	setBalance: React.Dispatch<React.SetStateAction<number>>;
+	setCartItemsIds: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 export const CartItemContext = createContext<CartItemContextTypes>({
 	cartItemsIds: [],
 	handleCartItems: () => {},
 	cartItems: [],
-	balance: 0,
-	setBalance: () => {},
+	setCartItemsIds: () => {},
 });
 
 const CartItemContextProvider = (props: CartItemContextProviderProps) => {
 	const [cartItemsIds, setCartItemsIds] = useState<number[]>([]);
 	const [cartItems, setCartItems] = useState<product[]>([]);
-	const [balance, setBalance] = useState<number>(0);
 
 	const handleCartItems = (id: number) => {
 		if (cartItemsIds.includes(id)) {
@@ -77,10 +74,10 @@ const CartItemContextProvider = (props: CartItemContextProviderProps) => {
 				}
 			});
 	}, [cartItemsIds]);
-	
+
 	return (
 		<CartItemContext.Provider
-			value={{ cartItemsIds, handleCartItems, cartItems, balance, setBalance }}>
+			value={{ cartItemsIds, handleCartItems, cartItems, setCartItemsIds }}>
 			{props.children}
 		</CartItemContext.Provider>
 	);
