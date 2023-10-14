@@ -1,8 +1,8 @@
 import { Box, CardMedia, IconButton, Typography } from '@mui/material';
-import { useContext, useState } from 'react';
+
 import { Product } from '../../interfaces/product';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
+import { useState } from 'react';
 
 interface CartItemProps {
 	cartItem: Product;
