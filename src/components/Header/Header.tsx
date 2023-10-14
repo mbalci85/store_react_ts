@@ -23,6 +23,9 @@ const Header = () => {
 					}}>
 					<Link to='/' style={{ textDecoration: 'none', color: 'coral' }}>
 						Balci Store
+					</Link>{' '}
+					<Link to='/about' style={{ textDecoration: 'none', color: 'coral' }}>
+						About Us
 					</Link>
 					<Tooltip title='Go to Checkout' placement='left'>
 						<IconButton>

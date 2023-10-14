@@ -104,6 +104,7 @@ const ContactUs = () => {
 						name='from_name'
 						value={formName}
 						onChange={(e) => setFormName(e.target.value)}
+						required
 					/>
 					<Input
 						sx={{
@@ -119,6 +120,7 @@ const ContactUs = () => {
 						name='email'
 						value={formEmail}
 						onChange={(e) => setFormEmail(e.target.value)}
+						required
 					/>
 					<Input
 						multiline
@@ -135,6 +137,7 @@ const ContactUs = () => {
 						name='message'
 						value={formMessage}
 						onChange={(e) => setFormMessage(e.target.value)}
+						required
 					/>
 					{isFormSubmitted ? (
 						<Button
