@@ -5,12 +5,12 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Product } from '../../interfaces/product';
 import { CartItemContext } from '../../contexts/CartItemContextProvider';
+import * as styles from '../../styles/ProductDetailStyles';
 
 const ProductDetail = () => {
 	const [product, setProduct] = useState<Product>();
 
-	const { isVerySmallScreen, isSmallScreen, isMediumScreen } =
-		useContext(MediaQueryContext);
+	const { isVerySmallScreen, isSmallScreen } = useContext(MediaQueryContext);
 	const { cartItemsIds, handleCartItems } = useContext(CartItemContext);
 	const { id } = useParams();
 
@@ -31,105 +31,71 @@ const ProductDetail = () => {
 	return (
 		<>
 			{product && (
-				<Box
-					sx={{
-						display: 'flex',
-						justifyContent: 'center',
-						alignItems: 'center',
-						minHeight: isVerySmallScreen ? '84vh' : '80vh',
-					}}>
-					<Card
-						sx={{
-							display: 'flex',
-							flexDirection: isSmallScreen ? 'column' : 'row',
-							alignItems: 'center',
-							minHeight: '70vh',
-							width: isMediumScreen ? '90%' : '80%',
-							padding: '1rem',
-							margin: '2rem 0',
-						}}>
+				<Box sx={styles.ProductDetailPageStyles(isSmallScreen)}>
+					<Card sx={styles.ProductDetailCardStyles(isSmallScreen)}>
 						<CardMedia
 							component='img'
 							image={product.image}
 							title={product.title}
-							sx={{
-								minHeight: isVerySmallScreen
-									? '12rem'
-									: isSmallScreen
-									? '16rem'
-									: '20rem',
-								width: isVerySmallScreen
-									? '12rem'
-									: isSmallScreen
-									? '16rem'
-									: '20rem',
-								objectFit: 'contain',
-								margin: '1rem',
-								flex: isMediumScreen ? 3 : null,
-							}}
+							sx={styles.ProductCardMediaStyles(
+								isVerySmallScreen,
+								isSmallScreen
+							)}
 						/>
 						<CardContent
 							sx={{
-								height: isSmallScreen ? '50%' : '90%',
-								flex: isMediumScreen ? 5 : null,
 								display: 'flex',
 								flexDirection: 'column',
 								justifyContent: 'space-between',
-								marginLeft: '2rem',
 							}}>
 							<Typography
-								sx={{
-									marginTop: '0.8rem',
-									fontSize: isVerySmallScreen
-										? '1rem'
-										: isSmallScreen
-										? '1.2rem'
-										: '1.35rem',
-									textAlign: isSmallScreen ? 'center' : null,
-								}}>
+								sx={styles.ProductCardTitleStyles(
+									isVerySmallScreen,
+									isSmallScreen
+								)}>
 								{product.title}
 							</Typography>
 							<Typography
-								sx={{
-									marginTop: '0.8rem',
-									fontSize: isVerySmallScreen
-										? '0.9rem'
-										: isSmallScreen
-										? '1rem'
-										: '1.25rem',
-									color: 'gray',
-								}}>
+								sx={styles.ProductCardDetailsStyles(
+									isVerySmallScreen,
+									isSmallScreen,
+									'0.9rem',
+									'1rem',
+									'1.25rem',
+									'gray'
+								)}>
 								£{product.price}
 							</Typography>
 							<Typography
-								sx={{
-									marginTop: '0.8rem',
-									fontSize: isVerySmallScreen
-										? '1rem'
-										: isSmallScreen
-										? '1.2rem'
-										: '1.35rem',
-								}}>
+								sx={styles.ProductCardDetailsStyles(
+									isVerySmallScreen,
+									isSmallScreen,
+									'1rem',
+									'1.2rem',
+									'1.35rem',
+									''
+								)}>
 								Description
 							</Typography>
 							<Typography
-								sx={{
-									marginTop: '0.8rem',
-									fontSize: isVerySmallScreen
-										? '0.75rem'
-										: isSmallScreen
-										? '0.9rem'
-										: '1rem',
-								}}>
+								sx={styles.ProductCardDetailsStyles(
+									isVerySmallScreen,
+									isSmallScreen,
+									'0.75rem',
+									'0.9rem',
+									'1rem',
+									''
+								)}>
 								{product.description}
 							</Typography>
 							<Button
 								variant='outlined'
+								size={isSmallScreen ? 'small' : 'medium'}
 								sx={{
 									backgroundColor: cartItemsIds.includes(+product.id)
 										? 'red'
 										: 'coral',
-									width: '80%',
+									width: isSmallScreen ? '80%' : '60%',
 									marginTop: '1.5rem',
 									alignSelf: isSmallScreen ? 'center' : null,
 									fontWeight: 'bolder',

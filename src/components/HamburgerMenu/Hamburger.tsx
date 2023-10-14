@@ -31,6 +31,7 @@ const Hamburger = () => {
 								onClick={() => handleSelectedCategoryProducts(category)}
 								sx={{
 									color: selectedCategory === category ? 'coral' : null,
+									cursor: 'pointer',
 								}}>
 								{category.charAt(0).toUpperCase() + category.slice(1)}
 							</ListItem>

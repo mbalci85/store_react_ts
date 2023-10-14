@@ -6,12 +6,12 @@ import { ProductContext } from '../../contexts/ProductsContextProvider';
 import ProductCard from '../../components/ProductCard/ProductCard';
 
 const Products = () => {
-	const { isVerySmallScreen } = useContext(MediaQueryContext);
+	const { isSmallScreen } = useContext(MediaQueryContext);
 	const { selectedCategoryProducts } = useContext(ProductContext);
 	return (
 		<Box
 			sx={{
-				minHeight: isVerySmallScreen ? '84vh' : '80vh',
+				minHeight: isSmallScreen ? '84vh' : '80vh',
 			}}>
 			<Categories />
 			<Box

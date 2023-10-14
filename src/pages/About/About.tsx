@@ -1,6 +1,9 @@
 import { Box, Typography } from '@mui/material';
+import { useContext } from 'react';
+import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
 
 const About = () => {
+	const { isSmallScreen } = useContext(MediaQueryContext);
 	return (
 		<Box
 			sx={{
@@ -8,7 +11,7 @@ const About = () => {
 				flexDirection: 'column',
 				justifyContent: 'center',
 				alignItems: 'center',
-				height: '84vh',
+				height: isSmallScreen ? '84vh' : '80vh',
 				padding: '0 3rem',
 			}}>
 			<Typography variant='h6' sx={{ marginBottom: '1.5rem', textAlign: 'center' }}>
