@@ -1,4 +1,6 @@
 import { Box, Button, Card, CardContent, CardMedia, Typography } from '@mui/material';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import { useContext, useEffect, useState } from 'react';
 import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
 import { useParams } from 'react-router-dom';
@@ -10,7 +12,7 @@ import * as styles from '../../styles/ProductDetailStyles';
 const ProductDetail = () => {
 	const [product, setProduct] = useState<Product>();
 
-	const { isVerySmallScreen, isSmallScreen } = useContext(MediaQueryContext);
+	const { isVerySmallScreen, isSmallScreen, isMediumScreen } = useContext(MediaQueryContext);
 	const { cartItemsIds, handleCartItems } = useContext(CartItemContext);
 	const { id } = useParams();
 
@@ -37,14 +39,14 @@ const ProductDetail = () => {
 							component='img'
 							image={product.image}
 							title={product.title}
-							sx={styles.ProductCardMediaStyles(isVerySmallScreen, isSmallScreen)}
+							sx={styles.ProductCardMediaStyles(isVerySmallScreen, isSmallScreen, isMediumScreen)}
 						/>
 						<CardContent
 							sx={{
 								display: 'flex',
 								flexDirection: 'column',
 								justifyContent: 'space-between',
-								marginLeft: isSmallScreen ? '' : '3.5rem',
+								marginLeft: isSmallScreen ? '' : '2.5rem',
 							}}>
 							<Typography sx={styles.ProductCardTitleStyles(isVerySmallScreen, isSmallScreen)}>
 								{product.title}
@@ -84,15 +86,22 @@ const ProductDetail = () => {
 							</Typography>
 							<Button
 								variant='outlined'
-								size={isSmallScreen ? 'small' : 'medium'}
+								size={isSmallScreen ? 'small' : isMediumScreen ? 'medium' : 'large'}
 								sx={{
 									backgroundColor: cartItemsIds.includes(+product.id) ? 'red' : 'coral',
-									width: isSmallScreen ? '80%' : '60%',
-									marginTop: '1.5rem',
-									alignSelf: isSmallScreen ? 'center' : null,
+									width: isSmallScreen ? '85%' : isMediumScreen ? '75%' : '65%',
+									marginTop: isSmallScreen ? '1.5rem' : '3.5rem',
+									alignSelf: 'center',
 									fontWeight: 'bolder',
 									color: 'black',
 								}}
+								startIcon={
+									cartItemsIds.includes(+product.id) ? (
+										<RemoveShoppingCartIcon />
+									) : (
+										<AddShoppingCartIcon />
+									)
+								}
 								onClick={() => {
 									handleCartItems(+product.id);
 								}}>

@@ -17,10 +17,11 @@ export const ProductDetailCardStyles = (isSmallScreen: boolean) => ({
 
 export const ProductCardMediaStyles = (
 	isVerySmallScreen: boolean,
-	isSmallScreen: boolean
+	isSmallScreen: boolean,
+	isMediumScreen:boolean
 ) => ({
-	height: isVerySmallScreen ? '9rem' : isSmallScreen ? '14rem' : '20rem',
-	width: isVerySmallScreen ? '9rem' : isSmallScreen ? '14rem' : '20rem',
+	height: isVerySmallScreen ? '9rem' : isSmallScreen ? '14rem' : isMediumScreen ? '17rem':'20rem',
+	width: isVerySmallScreen ? '9rem' : isSmallScreen ? '14rem' : isMediumScreen ? '17rem':'20rem',
 	objectFit: 'contain',
 	margin: '1rem',
 });
@@ -31,7 +32,7 @@ export const ProductCardTitleStyles = (
 ) => ({
 	marginTop: '0.8rem',
 	fontSize: isVerySmallScreen ? '1rem' : isSmallScreen ? '1.2rem' : '1.35rem',
-	textAlign: isSmallScreen ? 'center' : null,
+	textAlign: 'center'
 });
 
 export const ProductCardDetailsStyles = (
@@ -45,4 +46,5 @@ export const ProductCardDetailsStyles = (
 	marginTop: '0.8rem',
 	fontSize: isVerySmallScreen ? verySmall : isSmallScreen ? small : large,
 	color: color,
+	padding: '0.3rem'
 });

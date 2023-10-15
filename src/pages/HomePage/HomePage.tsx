@@ -1,12 +1,13 @@
 import { useContext } from 'react';
 import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
 import { Box, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
 import { ProductContext } from '../../contexts/ProductsContextProvider';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
 	const { isSmallScreen, isMediumScreen } = useContext(MediaQueryContext);
 	const { products, setSelectedCategoryProducts, setSelectedCategory } = useContext(ProductContext);
+	const navigate = useNavigate();
 	return (
 		<Box
 			sx={{
@@ -21,22 +22,30 @@ const HomePage = () => {
 				backgroundPosition: 'center center',
 				paddingTop: '5rem',
 			}}>
-			<Typography variant={isSmallScreen ? 'body1' : isMediumScreen ? 'h5' : 'h4'}>Welcome to Balci Store!</Typography>
-			<Link
-				to='/products'
-				style={{
+			<Typography variant={isSmallScreen ? 'body1' : isMediumScreen ? 'h5' : 'h4'}>
+				Welcome to Balci Store!
+			</Typography>
+			<Typography
+				sx={{
 					marginTop: '1rem',
 					border: '1px solid #ec7979',
 					padding: '0.5rem 1rem',
 					borderRadius: '0.2rem',
 					boxShadow: '0 0 0.1rem 0.2rem rgba(0, 0.1, 0.1, 0.1)',
+					transition: '0.3s',
+					cursor: 'pointer',
+					':hover': {
+						boxShadow: '0.1rem 0.1rem 0.2rem 0.3rem rgba(0, 0.1, 0.1, 0.2)',
+						backgroundColor: 'whitesmoke',
+					},
 				}}
 				onClick={() => {
 					setSelectedCategoryProducts(products);
 					setSelectedCategory('All');
+					navigate('/products');
 				}}>
 				See Products
-			</Link>
+			</Typography>
 		</Box>
 	);
 };

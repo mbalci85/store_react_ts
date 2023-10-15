@@ -102,7 +102,7 @@ const ContactUs = () => {
 					{isFormSubmitted ? (
 						<Button
 							variant='contained'
-							size={isSmallScreen ? 'small' : 'medium'}
+							size={isSmallScreen ? 'small' : isMediumScreen ? 'medium' : 'large'}
 							sx={{ width: '80%', margin: '1rem 0' }}
 							type='submit'>
 							Submit <SendIcon sx={{ marginLeft: '0.5rem' }} />
