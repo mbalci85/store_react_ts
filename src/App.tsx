@@ -66,7 +66,7 @@ const App = () => {
 										<Route path='/about' element={<About />} />
 										<Route path='/products' element={<Products />} />
 										<Route
-											path='product-detail/:id'
+											path='/product-detail/:id'
 											element={<ProductDetail />}
 										/>
 										<Route path='/checkout' element={<Checkout />} />

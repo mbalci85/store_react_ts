@@ -12,9 +12,10 @@ import {
 import SendIcon from '@mui/icons-material/Send';
 import emailjs from '@emailjs/browser';
 import LoadingButton from '@mui/lab/LoadingButton';
+import * as styles from '../../styles/ContactUsStyles';
 
 const ContactUs = () => {
-	const { isVerySmallScreen } = useContext(MediaQueryContext);
+	const { isSmallScreen, isMediumScreen } = useContext(MediaQueryContext);
 	const [formName, setFormName] = useState<string>('');
 	const [formEmail, setFormEmail] = useState<string>('');
 	const [formMessage, setFormMessage] = useState<string>('');
@@ -58,7 +59,7 @@ const ContactUs = () => {
 					display: 'flex',
 					justifyContent: 'center',
 					alignItems: 'center',
-					minHeight: isVerySmallScreen ? '84vh' : '80vh',
+					minHeight: isSmallScreen ? '84vh' : '80vh',
 				}}>
 				<form
 					ref={form}
@@ -69,37 +70,18 @@ const ContactUs = () => {
 						setFormEmail('');
 						setFormMessage('');
 					}}
-					style={{
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center',
-						border: '0.1rem  solid lightgray',
-						borderRadius: '0.3rem',
-						padding: '1.5rem',
-						margin: '2rem 0',
-						boxShadow: '0.1rem 0 0.2rem 0.2rem rgba(0, 0, 0, 0.1)',
-						transition: '0.3s',
-						width: '90%',
-						backgroundColor: '#FFFF',
-					}}>
+					style={styles.ContactUsFormStyles(isSmallScreen, isMediumScreen)}>
 					<Typography
-						variant='h6'
+						variant={isSmallScreen ? 'h6' : 'h5'}
 						sx={{
 							color: 'coral',
 							fontWeight: '500',
-							marginBottom: '0.3rem',
+							marginBottom: isSmallScreen ? '0.3rem' : '0.6rem',
 						}}>
 						CONTACT US
 					</Typography>
 					<Input
-						sx={{
-							border: '0.1rem solid lightgray',
-							borderRadius: '0.3rem',
-							marginBottom: '0.5rem',
-							padding: '0.3rem',
-							fontSize: '0.8rem',
-							width: '100%',
-						}}
+						sx={styles.ContactUsInputStyles(isSmallScreen, isMediumScreen)}
 						placeholder='Enter Name'
 						name='from_name'
 						value={formName}
@@ -107,14 +89,7 @@ const ContactUs = () => {
 						required
 					/>
 					<Input
-						sx={{
-							border: '0.1rem solid lightgray',
-							borderRadius: '0.3rem',
-							marginBottom: '0.5rem',
-							padding: '0.3rem',
-							fontSize: '0.8rem',
-							width: '100%',
-						}}
+						sx={styles.ContactUsInputStyles(isSmallScreen, isMediumScreen)}
 						placeholder='Email Address'
 						type='email'
 						name='email'
@@ -126,14 +101,7 @@ const ContactUs = () => {
 						multiline
 						rows={8}
 						placeholder='Write your message here...'
-						sx={{
-							border: '0.1rem solid lightgray',
-							borderRadius: '0.3rem',
-							marginBottom: '0.5rem',
-							padding: '0.3rem',
-							fontSize: '0.8rem',
-							width: '100%',
-						}}
+						sx={styles.ContactUsMessageBoxStyles(isSmallScreen)}
 						name='message'
 						value={formMessage}
 						onChange={(e) => setFormMessage(e.target.value)}
@@ -142,7 +110,7 @@ const ContactUs = () => {
 					{isFormSubmitted ? (
 						<Button
 							variant='contained'
-							size='small'
+							size={isSmallScreen ? 'small' : 'medium'}
 							sx={{ width: '80%', margin: '1rem 0' }}
 							type='submit'>
 							Submit <SendIcon sx={{ marginLeft: '0.5rem' }} />

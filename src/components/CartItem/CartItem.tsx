@@ -1,8 +1,11 @@
 import { Box, CardMedia, IconButton, Typography } from '@mui/material';
-
 import { Product } from '../../interfaces/product';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
+import { Link } from 'react-router-dom';
+import * as styles from '../../styles/CartItemStyles';
+import CartItemUtils from '../../utils/CartItemUtils';
 
 interface CartItemProps {
 	cartItem: Product;
@@ -12,7 +15,7 @@ interface CartItemProps {
 }
 
 const CartItem = ({ cartItem, handleCartItems, setBalance, balance }: CartItemProps) => {
-	// const { isVerySmallScreen, isSmallScreen } = useContext(MediaQueryContext);
+	const { isSmallScreen, isMediumScreen } = useContext(MediaQueryContext);
 
 	const [quantity, setQuantity] = useState<number>(1);
 
@@ -25,55 +28,48 @@ const CartItem = ({ cartItem, handleCartItems, setBalance, balance }: CartItemPr
 		setQuantity(newQuantity);
 	};
 
-	const boxGenerator = (width: string, value: number) => {
-		return (
-			<Box
-				sx={{
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center',
-					width: width,
-					fontSize: '0.75rem',
-				}}>
-				{value}
-			</Box>
-		);
-	};
+	// Invoke the boxGenerator function from CartItemUtils and use its return value
+	const priceBox = CartItemUtils.boxGenerator('12vw', cartItem.price);
+	const totalBox = CartItemUtils.boxGenerator(
+		'12vw',
+		+(cartItem.price * quantity).toFixed(2)
+	);
+
 	return (
-		<Box
-			sx={{
-				display: 'flex',
-				justifyContent: 'center',
-				alignItems: 'center',
-				borderTop: 'solid lightgray 0.1rem',
-				marginBottom: '0.75rem',
-				paddingTop: '0.75rem',
-			}}>
-			<Box
-				sx={{
-					display: 'flex',
-					justifyContent: 'left',
-					alignItems: 'center',
-					width: '40vw',
-				}}>
-				<CardMedia
-					component='img'
-					image={cartItem.image}
+		<Box sx={styles.CartItemBoxStyle()}>
+			<Link to={`/product-detail/${cartItem.id}`}>
+				<Box
 					sx={{
-						height: '4rem',
-						width: '3rem',
-						objectFit: 'contain',
-						marginRight: '0.8rem',
-					}}
-				/>
-				<Typography sx={{ fontSize: '0.6rem' }}>{cartItem.title}</Typography>
-			</Box>
-			{boxGenerator('12vw', cartItem.price)}
+						display: 'flex',
+						justifyContent: 'left',
+						alignItems: 'center',
+						width: isSmallScreen ? '40vw' : '30vw',
+					}}>
+					<CardMedia
+						component='img'
+						image={cartItem.image}
+						title={cartItem.title}
+						sx={styles.CartItemMediaStyles(isSmallScreen, isMediumScreen)}
+					/>
+
+					<Typography
+						sx={{
+							fontSize: isSmallScreen
+								? '0.6rem'
+								: isMediumScreen
+								? '0.8rem'
+								: '1rem',
+						}}>
+						{cartItem.title}
+					</Typography>
+				</Box>
+			</Link>
+			{priceBox}
 			<Box sx={{ width: '12vw', textAlign: 'center' }}>
 				<input
 					type='number'
 					min='1'
-					style={{ width: '6vw', textAlign: 'center' }}
+					style={styles.CartItemInputStyles(isSmallScreen, isMediumScreen)}
 					value={quantity}
 					onChange={(e) => {
 						setQuantity(+e.target.value);
@@ -82,14 +78,18 @@ const CartItem = ({ cartItem, handleCartItems, setBalance, balance }: CartItemPr
 					}}
 				/>
 			</Box>
-			{boxGenerator('12vw', +(cartItem.price * quantity).toFixed(2))}
-			<Box sx={{ width: '12vw' }}>
+			{totalBox}
+			<Box sx={{ width: '12vw', textAlign: 'center' }}>
 				<IconButton
 					onClick={() => {
 						handleCartItems(+cartItem.id);
 						setBalance(balance - cartItem.price * quantity);
 					}}>
-					<DeleteIcon fontSize='small' />
+					<DeleteIcon
+						fontSize={
+							isSmallScreen ? 'small' : isMediumScreen ? 'medium' : 'large'
+						}
+					/>
 				</IconButton>
 			</Box>
 		</Box>

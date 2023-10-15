@@ -16,7 +16,8 @@ import CartItem from '../../components/CartItem/CartItem';
 import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
-	const { isVerySmallScreen, isSmallScreen } = useContext(MediaQueryContext);
+	const { isVerySmallScreen, isSmallScreen, isMediumScreen } =
+		useContext(MediaQueryContext);
 	const { cartItemsIds, handleCartItems, cartItems, setCartItemsIds } =
 		useContext(CartItemContext);
 
@@ -38,13 +39,14 @@ const Checkout = () => {
 				sx={{
 					width: { width },
 					textAlign: 'center',
-					fontSize: isVerySmallScreen
-						? '0.85rem'
-						: isSmallScreen
+					fontSize: isSmallScreen
+						? '0.9rem'
+						: isMediumScreen
 						? '1.1rem'
-						: '1.25rem',
+						: '1.3rem',
 					color: 'gray',
 					fontWeight: 'bold',
+					padding: isSmallScreen ? '0' : '1rem',
 				}}>
 				{title}
 			</Typography>
@@ -63,9 +65,17 @@ const Checkout = () => {
 					sx={{
 						padding: '1rem',
 					}}>
-					<DialogTitle>Your order was successful!</DialogTitle>
+					<DialogTitle
+						sx={{
+							fontSize: isSmallScreen ? '1rem' : '1.5rem',
+							color: 'green',
+							fontWeight: 'bold',
+						}}>
+						Your order was successful!
+					</DialogTitle>
 					<DialogContent>
-						<DialogContentText>
+						<DialogContentText
+							sx={{ fontSize: isSmallScreen ? '0.75rem' : '1.25rem' }}>
 							Check your email for the order confirmation. Thank you for
 							shopping with Balci Store!
 						</DialogContentText>
@@ -73,6 +83,7 @@ const Checkout = () => {
 					<DialogActions>
 						<Button
 							variant='contained'
+							size={isSmallScreen ? 'small' : 'medium'}
 							onClick={() => {
 								navigate('/');
 								localStorage.setItem('cart-items-ids', '[]');
@@ -91,9 +102,13 @@ const Checkout = () => {
 						display: 'flex',
 						justifyContent: 'center',
 						alignItems: 'center',
-						minHeight: isVerySmallScreen ? '84vh' : '80vh',
+						minHeight: isSmallScreen ? '84vh' : '80vh',
 					}}>
-					<Typography color='error'>
+					<Typography
+						variant={
+							isVerySmallScreen ? 'body1' : isSmallScreen ? 'h5' : 'h4'
+						}
+						color='error'>
 						There is no cart items to display
 					</Typography>
 				</Box>
@@ -106,13 +121,29 @@ const Checkout = () => {
 						alignItems: 'center',
 						minHeight: isVerySmallScreen ? '84vh' : '80vh',
 					}}>
-					<Box sx={{ backgroundColor: 'white', margin: '3rem 0 2rem 0' }}>
+					<Box
+						sx={{
+							backgroundColor: 'white',
+							margin: '3rem 0 2rem 0',
+							padding: '0.5rem',
+							border: '0.1rem solid lightgray',
+							borderRadius: '0.4rem',
+							boxShadow: '0.1rem 0.1rem 0.2rem 0.2rem rgba(0, 0, 0, 0.1)',
+							transition: '0.3s',
+							':hover': {
+								boxShadow:
+									'0.2rem 0.2rem 0.3rem 0.3rem rgba(0, 0, 0, 0.2)',
+							},
+						}}>
 						<Box sx={{ display: 'flex' }}>
-							{headerGenerator('40vw', 'Item')}
-							{headerGenerator('12vw', '£')}
-							{headerGenerator('12vw', '#')}
+							{headerGenerator(isSmallScreen ? '40vw' : '30vw', 'Item')}
+							{headerGenerator('12vw', isVerySmallScreen ? '£' : 'Price')}
+							{headerGenerator(
+								'12vw',
+								isVerySmallScreen ? '#' : 'Quantity'
+							)}
 							{headerGenerator('12vw', 'Total')}
-							{headerGenerator('12vw', '')}
+							{headerGenerator('12vw', isVerySmallScreen ? '' : 'Remove')}
 						</Box>
 						<Box>
 							{cartItems.map((cartItem) => {
@@ -135,12 +166,25 @@ const Checkout = () => {
 							flexDirection: 'column',
 							alignSelf: 'flex-end',
 							alignItems: 'center',
-							margin: '0 1.5rem 2rem 0',
+							margin: isSmallScreen ? '0 6vw 2rem 0' : '0 11vw 2rem 0',
 						}}>
-						<Typography variant='body2' sx={{ marginBottom: '0.3rem' }}>
+						<Typography
+							variant={
+								isSmallScreen ? 'body2' : isMediumScreen ? 'body1' : 'h6'
+							}
+							sx={{ marginBottom: '0.3rem' }}>
 							Total £{balance.toFixed(2)}
 						</Typography>
-						<Button variant='contained' size='small' onClick={openModel}>
+						<Button
+							variant='contained'
+							size={
+								isSmallScreen
+									? 'small'
+									: isMediumScreen
+									? 'medium'
+									: 'large'
+							}
+							onClick={openModel}>
 							Check Out
 						</Button>
 					</Box>

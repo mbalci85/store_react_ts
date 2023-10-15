@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { ProductContext } from '../../contexts/ProductsContextProvider';
 
 const HomePage = () => {
-	const { isSmallScreen } = useContext(MediaQueryContext);
+	const { isSmallScreen, isMediumScreen } = useContext(MediaQueryContext);
 	const { products, setSelectedCategoryProducts, setSelectedCategory } =
 		useContext(ProductContext);
 	return (
@@ -22,13 +22,15 @@ const HomePage = () => {
 				backgroundPosition: 'center center',
 				paddingTop: '5rem',
 			}}>
-			<Typography>Welcome to Balci Store</Typography>
+			<Typography variant={isSmallScreen ? 'body1' : isMediumScreen ? 'h5' : 'h4'}>
+				Welcome to Balci Store!
+			</Typography>
 			<Link
 				to='/products'
 				style={{
 					marginTop: '1rem',
 					border: '1px solid #ec7979',
-					padding: '0.3rem',
+					padding: '0.5rem 1rem',
 					borderRadius: '0.2rem',
 					boxShadow: '0 0 0.1rem 0.2rem rgba(0, 0.1, 0.1, 0.1)',
 				}}

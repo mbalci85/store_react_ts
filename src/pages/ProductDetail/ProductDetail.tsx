@@ -47,6 +47,7 @@ const ProductDetail = () => {
 								display: 'flex',
 								flexDirection: 'column',
 								justifyContent: 'space-between',
+								marginLeft: isSmallScreen ? '' : '3.5rem',
 							}}>
 							<Typography
 								sx={styles.ProductCardTitleStyles(
@@ -73,7 +74,7 @@ const ProductDetail = () => {
 									'1rem',
 									'1.2rem',
 									'1.35rem',
-									''
+									'black'
 								)}>
 								Description
 							</Typography>
@@ -84,7 +85,7 @@ const ProductDetail = () => {
 									'0.75rem',
 									'0.9rem',
 									'1rem',
-									''
+									'black'
 								)}>
 								{product.description}
 							</Typography>

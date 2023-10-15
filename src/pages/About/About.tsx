@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
 
 const About = () => {
-	const { isSmallScreen } = useContext(MediaQueryContext);
+	const { isSmallScreen, isMediumScreen } = useContext(MediaQueryContext);
 	return (
 		<Box
 			sx={{
@@ -14,16 +14,21 @@ const About = () => {
 				height: isSmallScreen ? '84vh' : '80vh',
 				padding: '0 3rem',
 			}}>
-			<Typography variant='h6' sx={{ marginBottom: '1.5rem', textAlign: 'center' }}>
+			<Typography
+				variant={isSmallScreen ? 'h6' : isMediumScreen ? 'h5' : 'h4'}
+				sx={{ marginBottom: '1.5rem', textAlign: 'center' }}>
 				Welcome to our Store!
 			</Typography>
 			<Typography
-				variant='body2'
+				variant={isSmallScreen ? 'body2' : isMediumScreen ? 'body1' : 'h6'}
 				sx={{ textAlign: 'center', marginBottom: '4rem' }}>
-				Used React + Vite + TypeScript, and Material-UI to bring you a seamless
-				shopping experience.
+				Used React + Vite + TypeScript, Context API and Material-UI to bring you a
+				seamless shopping experience.
 			</Typography>
-			<Typography>CopyRight @ 2023</Typography>
+			<Typography
+				variant={isSmallScreen ? 'body2' : isMediumScreen ? 'body1' : 'h6'}>
+				CopyRight @ 2023
+			</Typography>
 		</Box>
 	);
 };
