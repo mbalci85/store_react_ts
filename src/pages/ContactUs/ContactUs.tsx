@@ -1,14 +1,6 @@
 import { FormEvent, useContext, useRef, useState } from 'react';
 import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
-import {
-	Alert,
-	Box,
-	Button,
-	Container,
-	Input,
-	Snackbar,
-	Typography,
-} from '@mui/material';
+import { Alert, Box, Button, Container, Input, Snackbar, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import emailjs from '@emailjs/browser';
 import LoadingButton from '@mui/lab/LoadingButton';

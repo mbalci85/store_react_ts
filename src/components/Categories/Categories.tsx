@@ -7,8 +7,7 @@ import { ProductContext } from '../../contexts/ProductsContextProvider';
 
 const Categories = () => {
 	const { categories } = useContext(CategoriesContext);
-	const { handleSelectedCategoryProducts, selectedCategory } =
-		useContext(ProductContext);
+	const { handleSelectedCategoryProducts, selectedCategory } = useContext(ProductContext);
 	const { isSmallScreen } = useContext(MediaQueryContext);
 
 	return (
@@ -24,14 +23,9 @@ const Categories = () => {
 									key={category}
 									sx={{
 										marginLeft: '0.5rem',
-										color:
-											selectedCategory === category
-												? 'coral'
-												: null,
+										color: selectedCategory === category ? 'coral' : null,
 									}}
-									onClick={() =>
-										handleSelectedCategoryProducts(category)
-									}>
+									onClick={() => handleSelectedCategoryProducts(category)}>
 									{category.charAt(0).toUpperCase() + category.slice(1)}
 								</Button>
 							);

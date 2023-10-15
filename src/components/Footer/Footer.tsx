@@ -16,9 +16,7 @@ const Footer = () => {
 				padding: '0 1rem',
 				borderTop: 'solid 0.1rem #fad2d2',
 			}}>
-			<Typography variant={isSmallScreen ? 'body2' : 'body1'}>
-				Balci Store@React-TS
-			</Typography>
+			<Typography variant={isSmallScreen ? 'body2' : 'body1'}>Balci Store@React-TS</Typography>
 			<Link to='/contact-us' style={{ textDecoration: 'none', color: 'coral' }}>
 				Contact Us
 			</Link>

@@ -37,10 +37,7 @@ const ProductDetail = () => {
 							component='img'
 							image={product.image}
 							title={product.title}
-							sx={styles.ProductCardMediaStyles(
-								isVerySmallScreen,
-								isSmallScreen
-							)}
+							sx={styles.ProductCardMediaStyles(isVerySmallScreen, isSmallScreen)}
 						/>
 						<CardContent
 							sx={{
@@ -49,11 +46,7 @@ const ProductDetail = () => {
 								justifyContent: 'space-between',
 								marginLeft: isSmallScreen ? '' : '3.5rem',
 							}}>
-							<Typography
-								sx={styles.ProductCardTitleStyles(
-									isVerySmallScreen,
-									isSmallScreen
-								)}>
+							<Typography sx={styles.ProductCardTitleStyles(isVerySmallScreen, isSmallScreen)}>
 								{product.title}
 							</Typography>
 							<Typography
@@ -93,9 +86,7 @@ const ProductDetail = () => {
 								variant='outlined'
 								size={isSmallScreen ? 'small' : 'medium'}
 								sx={{
-									backgroundColor: cartItemsIds.includes(+product.id)
-										? 'red'
-										: 'coral',
+									backgroundColor: cartItemsIds.includes(+product.id) ? 'red' : 'coral',
 									width: isSmallScreen ? '80%' : '60%',
 									marginTop: '1.5rem',
 									alignSelf: isSmallScreen ? 'center' : null,
@@ -105,9 +96,7 @@ const ProductDetail = () => {
 								onClick={() => {
 									handleCartItems(+product.id);
 								}}>
-								{cartItemsIds.includes(+product.id)
-									? 'Remove from Cart'
-									: 'Add to Cart'}
+								{cartItemsIds.includes(+product.id) ? 'Remove from Cart' : 'Add to Cart'}
 							</Button>
 						</CardContent>
 					</Card>

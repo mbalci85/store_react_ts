@@ -30,10 +30,7 @@ const CartItem = ({ cartItem, handleCartItems, setBalance, balance }: CartItemPr
 
 	// Invoke the boxGenerator function from CartItemUtils and use its return value
 	const priceBox = CartItemUtils.boxGenerator('12vw', cartItem.price);
-	const totalBox = CartItemUtils.boxGenerator(
-		'12vw',
-		+(cartItem.price * quantity).toFixed(2)
-	);
+	const totalBox = CartItemUtils.boxGenerator('12vw', +(cartItem.price * quantity).toFixed(2));
 
 	return (
 		<Box sx={styles.CartItemBoxStyle()}>
@@ -54,11 +51,7 @@ const CartItem = ({ cartItem, handleCartItems, setBalance, balance }: CartItemPr
 
 					<Typography
 						sx={{
-							fontSize: isSmallScreen
-								? '0.6rem'
-								: isMediumScreen
-								? '0.8rem'
-								: '1rem',
+							fontSize: isSmallScreen ? '0.6rem' : isMediumScreen ? '0.8rem' : '1rem',
 						}}>
 						{cartItem.title}
 					</Typography>
@@ -85,11 +78,7 @@ const CartItem = ({ cartItem, handleCartItems, setBalance, balance }: CartItemPr
 						handleCartItems(+cartItem.id);
 						setBalance(balance - cartItem.price * quantity);
 					}}>
-					<DeleteIcon
-						fontSize={
-							isSmallScreen ? 'small' : isMediumScreen ? 'medium' : 'large'
-						}
-					/>
+					<DeleteIcon fontSize={isSmallScreen ? 'small' : isMediumScreen ? 'medium' : 'large'} />
 				</IconButton>
 			</Box>
 		</Box>

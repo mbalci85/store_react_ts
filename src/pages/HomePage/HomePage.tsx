@@ -6,8 +6,7 @@ import { ProductContext } from '../../contexts/ProductsContextProvider';
 
 const HomePage = () => {
 	const { isSmallScreen, isMediumScreen } = useContext(MediaQueryContext);
-	const { products, setSelectedCategoryProducts, setSelectedCategory } =
-		useContext(ProductContext);
+	const { products, setSelectedCategoryProducts, setSelectedCategory } = useContext(ProductContext);
 	return (
 		<Box
 			sx={{
@@ -22,9 +21,7 @@ const HomePage = () => {
 				backgroundPosition: 'center center',
 				paddingTop: '5rem',
 			}}>
-			<Typography variant={isSmallScreen ? 'body1' : isMediumScreen ? 'h5' : 'h4'}>
-				Welcome to Balci Store!
-			</Typography>
+			<Typography variant={isSmallScreen ? 'body1' : isMediumScreen ? 'h5' : 'h4'}>Welcome to Balci Store!</Typography>
 			<Link
 				to='/products'
 				style={{
