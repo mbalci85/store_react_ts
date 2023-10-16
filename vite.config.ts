@@ -1,7 +1,11 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vitest/config';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-})
+  test: {
+    coverage: {
+      provider: 'v8', // Specify the coverage provider (you can choose 'istanbul' or 'custom' if needed)
+      reporter: ['html', 'text'], // Specify the coverage reporters
+    },
+    includeSource: ["src/**/*.{js,ts}"],
+  },
+});
