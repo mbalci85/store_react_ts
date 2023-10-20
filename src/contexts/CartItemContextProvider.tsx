@@ -28,9 +28,7 @@ const CartItemContextProvider = (props: CartItemContextProviderProps) => {
 
 	const handleCartItems = (id: number) => {
 		if (cartItemsIds.includes(id)) {
-			const filteredCartItemsIds = cartItemsIds.filter(
-				(cartItemId) => cartItemId !== id
-			);
+			const filteredCartItemsIds = cartItemsIds.filter((cartItemId) => cartItemId !== id);
 			setCartItemsIds(filteredCartItemsIds);
 			localStorage.setItem('cart-items-ids', JSON.stringify(filteredCartItemsIds));
 		} else {
@@ -76,8 +74,7 @@ const CartItemContextProvider = (props: CartItemContextProviderProps) => {
 	}, [cartItemsIds]);
 
 	return (
-		<CartItemContext.Provider
-			value={{ cartItemsIds, handleCartItems, cartItems, setCartItemsIds }}>
+		<CartItemContext.Provider value={{ cartItemsIds, handleCartItems, cartItems, setCartItemsIds }}>
 			{props.children}
 		</CartItemContext.Provider>
 	);

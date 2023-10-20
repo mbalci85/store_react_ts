@@ -15,12 +15,9 @@ const Products = lazy(() => import('./pages/Products/Products'));
 
 const ProductsContextProvider = lazy(() => import('./contexts/ProductsContextProvider'));
 const CartItemContextProvider = lazy(() => import('./contexts/CartItemContextProvider'));
-const MediaQueryContextProvider = lazy(
-	() => import('./contexts/MediaQueryContextProvider')
-);
-const CategoriesContextProvider = lazy(
-	() => import('./contexts/CategoriesContextProvider')
-);
+const MediaQueryContextProvider = lazy(() => import('./contexts/MediaQueryContextProvider'));
+const CategoriesContextProvider = lazy(() => import('./contexts/CategoriesContextProvider'));
+const ThemeContextProvider = lazy(() => import('./contexts/ThemeContextProvider'));
 
 const App = () => {
 	return (
@@ -49,9 +46,7 @@ const App = () => {
 							backgroundPosition: 'center center',
 						}}>
 						<CircularProgress color='secondary' size={75} />
-						<Typography
-							variant='h4'
-							sx={{ margin: '2.5rem', color: 'coral' }}>
+						<Typography variant='h4' sx={{ margin: '2.5rem', color: 'coral' }}>
 							Balci Store
 						</Typography>
 						<Typography variant='h6' sx={{ color: 'coral' }}>
@@ -59,32 +54,28 @@ const App = () => {
 						</Typography>
 					</Box>
 				}>
-				<CartItemContextProvider>
-					<ProductsContextProvider>
-						<MediaQueryContextProvider>
-							<CategoriesContextProvider>
-								<Router>
-									<Header />
-									<Routes>
-										<Route path='/' element={<HomePage />} />
-										<Route path='/about' element={<About />} />
-										<Route path='/products' element={<Products />} />
-										<Route
-											path='/product-detail/:id'
-											element={<ProductDetail />}
-										/>
-										<Route path='/checkout' element={<Checkout />} />
-										<Route
-											path='/contact-us'
-											element={<ContactUs />}
-										/>
-									</Routes>
-									<Footer />
-								</Router>
-							</CategoriesContextProvider>
-						</MediaQueryContextProvider>
-					</ProductsContextProvider>
-				</CartItemContextProvider>
+				<ThemeContextProvider>
+					<CartItemContextProvider>
+						<ProductsContextProvider>
+							<MediaQueryContextProvider>
+								<CategoriesContextProvider>
+									<Router>
+										<Header />
+										<Routes>
+											<Route path='/' element={<HomePage />} />
+											<Route path='/about' element={<About />} />
+											<Route path='/products' element={<Products />} />
+											<Route path='/product-detail/:id' element={<ProductDetail />} />
+											<Route path='/checkout' element={<Checkout />} />
+											<Route path='/contact-us' element={<ContactUs />} />
+										</Routes>
+										<Footer />
+									</Router>
+								</CategoriesContextProvider>
+							</MediaQueryContextProvider>
+						</ProductsContextProvider>
+					</CartItemContextProvider>
+				</ThemeContextProvider>
 			</Suspense>
 		</Box>
 	);

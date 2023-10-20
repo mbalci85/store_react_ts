@@ -4,10 +4,13 @@ import { Box, IconButton, Badge, AppBar, Tooltip, Typography } from '@mui/materi
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link, useNavigate } from 'react-router-dom';
 import { CartItemContext } from '../../contexts/CartItemContextProvider';
+import { DarkModeOutlined, LightModeRounded } from '@mui/icons-material';
+import { ThemeContext } from '../../contexts/ThemeContextProvider';
 
 const Header = () => {
 	const { isSmallScreen } = useContext(MediaQueryContext);
 	const { cartItemsIds } = useContext(CartItemContext);
+	const { theme, toggleTheme } = useContext(ThemeContext);
 	const navigate = useNavigate();
 	return (
 		<Box
@@ -37,7 +40,7 @@ const Header = () => {
 				<Link to='/about' style={{ textDecoration: 'none', color: 'coral' }}>
 					About Us
 				</Link>
-				<Tooltip title='Go to Checkout' placement='left'>
+				<Tooltip title='Go to Checkout' placement='bottom'>
 					<IconButton>
 						<Badge badgeContent={cartItemsIds.length} color='error'>
 							<ShoppingCartIcon
@@ -47,6 +50,17 @@ const Header = () => {
 								}}
 							/>
 						</Badge>
+					</IconButton>
+				</Tooltip>
+				<Tooltip
+					title={localStorage.getItem('store-theme') === 'Light' ? 'Dark Mode' : 'Light Mode'}
+					placement='bottom'>
+					<IconButton>
+						{localStorage.getItem('store-theme') === 'Light' ? (
+							<DarkModeOutlined onClick={toggleTheme} />
+						) : (
+							<LightModeRounded onClick={toggleTheme} />
+						)}
 					</IconButton>
 				</Tooltip>
 			</AppBar>
