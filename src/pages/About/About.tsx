@@ -1,9 +1,11 @@
 import { Box, Typography } from '@mui/material';
 import { useContext } from 'react';
 import { MediaQueryContext } from '../../contexts/MediaQueryContextProvider';
+import { ThemeContext } from '../../contexts/ThemeContextProvider';
 
 const About = () => {
 	const { isSmallScreen, isMediumScreen } = useContext(MediaQueryContext);
+	const { theme } = useContext(ThemeContext);
 	return (
 		<Box
 			sx={{
@@ -13,6 +15,7 @@ const About = () => {
 				alignItems: 'center',
 				height: isSmallScreen ? '84vh' : '80vh',
 				padding: '0 3rem',
+				color: theme === 'Light' ? null : 'white',
 			}}>
 			<Typography
 				variant={isSmallScreen ? 'h6' : isMediumScreen ? 'h5' : 'h4'}
@@ -22,11 +25,9 @@ const About = () => {
 			<Typography
 				variant={isSmallScreen ? 'body2' : isMediumScreen ? 'body1' : 'h6'}
 				sx={{ textAlign: 'center', marginBottom: '4rem' }}>
-				Used React + Vite + TypeScript, Context API and Material-UI to bring you a
-				seamless shopping experience.
+				Used React + Vite + TypeScript, Context API and Material-UI to bring you a seamless shopping experience.
 			</Typography>
-			<Typography
-				variant={isSmallScreen ? 'body2' : isMediumScreen ? 'body1' : 'h6'}>
+			<Typography variant={isSmallScreen ? 'body2' : isMediumScreen ? 'body1' : 'h6'}>
 				CopyRight @ 2023
 			</Typography>
 		</Box>

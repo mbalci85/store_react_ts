@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { CartItemContext } from '../../contexts/CartItemContextProvider';
 import * as styles from '../../styles/ProductCardStyles';
+import { ThemeContext } from '../../contexts/ThemeContextProvider';
 
 interface ProductCardProps {
 	product: Product;
@@ -13,14 +14,15 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
 	const { cartItemsIds, handleCartItems } = useContext(CartItemContext);
+	const { theme } = useContext(ThemeContext);
 	return (
-		<Card sx={styles.ProductCardStyles()}>
+		<Card sx={styles.ProductCardStyles(theme)}>
 			<Tooltip title={cartItemsIds.includes(+product.id) ? 'Remove from Cart' : 'Add to Cart'} placement='top'>
 				<IconButton sx={{ position: 'absolute', top: 0, left: 0 }} onClick={() => handleCartItems(+product.id)}>
 					{cartItemsIds.includes(+product.id) ? (
 						<RemoveCircleOutlineIcon sx={{ color: 'red' }} />
 					) : (
-						<AddCircleOutlineIcon />
+						<AddCircleOutlineIcon sx={{ color: theme === 'Light' ? null : 'white' }} />
 					)}
 				</IconButton>
 			</Tooltip>
@@ -28,7 +30,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 				component='img'
 				image={product.image}
 				title={product.title}
-				sx={styles.ProductCardMediaStyles()}
+				sx={styles.ProductCardMediaStyles(theme)}
 			/>
 			<Link to={`/product-detail/${product.id}`}>
 				<CardContent sx={styles.ProductCardContentStyles()}>

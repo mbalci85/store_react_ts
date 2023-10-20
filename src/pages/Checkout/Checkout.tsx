@@ -6,10 +6,12 @@ import CartItem from '../../components/CartItem/CartItem';
 import * as styles from '../../styles/CheckoutStyles';
 import CheckoutDialog from '../../components/CheckoutDialog/CheckoutDialog';
 import CheckoutUtils from '../../utils/CheckoutUtils';
+import { ThemeContext } from '../../contexts/ThemeContextProvider';
 
 const Checkout = () => {
 	const { isVerySmallScreen, isSmallScreen, isMediumScreen } = useContext(MediaQueryContext);
 	const { cartItemsIds, handleCartItems, cartItems } = useContext(CartItemContext);
+	const { theme } = useContext(ThemeContext);
 	const [isModelOpen, setIsModelOpen] = useState<boolean>(false);
 
 	const openModel = () => {
@@ -39,7 +41,9 @@ const Checkout = () => {
 						alignItems: 'center',
 						minHeight: isSmallScreen ? '84vh' : '80vh',
 					}}>
-					<Typography variant={isVerySmallScreen ? 'body1' : isSmallScreen ? 'h5' : 'h4'} color='error'>
+					<Typography
+						variant={isVerySmallScreen ? 'body1' : isSmallScreen ? 'h5' : 'h4'}
+						color={theme === 'Light' ? 'error' : 'white'}>
 						There is no cart items to display
 					</Typography>
 				</Box>
@@ -85,7 +89,7 @@ const Checkout = () => {
 						}}>
 						<Typography
 							variant={isSmallScreen ? 'body2' : isMediumScreen ? 'body1' : 'h6'}
-							sx={{ marginBottom: '0.3rem' }}>
+							sx={{ marginBottom: '0.3rem', color: theme === 'Light' ? null : 'white' }}>
 							Total £{balance.toFixed(2)}
 						</Typography>
 						<Button

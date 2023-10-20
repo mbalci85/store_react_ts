@@ -5,9 +5,11 @@ import SendIcon from '@mui/icons-material/Send';
 import emailjs from '@emailjs/browser';
 import LoadingButton from '@mui/lab/LoadingButton';
 import * as styles from '../../styles/ContactUsStyles';
+import { ThemeContext } from '../../contexts/ThemeContextProvider';
 
 const ContactUs = () => {
 	const { isSmallScreen, isMediumScreen } = useContext(MediaQueryContext);
+	const { theme } = useContext(ThemeContext);
 	const [formName, setFormName] = useState<string>('');
 	const [formEmail, setFormEmail] = useState<string>('');
 	const [formMessage, setFormMessage] = useState<string>('');
@@ -62,11 +64,11 @@ const ContactUs = () => {
 						setFormEmail('');
 						setFormMessage('');
 					}}
-					style={styles.ContactUsFormStyles(isSmallScreen, isMediumScreen)}>
+					style={styles.ContactUsFormStyles(isSmallScreen, isMediumScreen, theme)}>
 					<Typography
 						variant={isSmallScreen ? 'h6' : 'h5'}
 						sx={{
-							color: 'coral',
+							color: theme === 'Light' ? 'coral' : 'white',
 							fontWeight: '500',
 							marginBottom: isSmallScreen ? '0.3rem' : '0.6rem',
 						}}>
