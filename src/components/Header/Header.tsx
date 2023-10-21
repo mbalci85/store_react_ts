@@ -6,11 +6,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { CartItemContext } from '../../contexts/CartItemContextProvider';
 import { DarkModeOutlined, LightModeRounded } from '@mui/icons-material';
 import { ThemeContext } from '../../contexts/ThemeContextProvider';
+import { ProductContext } from '../../contexts/ProductsContextProvider';
 
 const Header = () => {
 	const { isSmallScreen } = useContext(MediaQueryContext);
 	const { cartItemsIds } = useContext(CartItemContext);
 	const { theme, toggleTheme } = useContext(ThemeContext);
+	const { setSelectedCategory, setSelectedCategoryProducts, products } = useContext(ProductContext);
 	const navigate = useNavigate();
 	return (
 		<Box
@@ -38,33 +40,42 @@ const Header = () => {
 					onClick={() => navigate('/')}>
 					Balci Store
 				</Typography>
-				<Link to='/about' style={{ textDecoration: 'none', color: theme === 'Light' ? 'coral' : 'white' }}>
-					About Us
+				<Link
+					to='/products'
+					style={{ textDecoration: 'none', color: theme === 'Light' ? 'coral' : 'white' }}
+					onClick={() => {
+						setSelectedCategoryProducts(products);
+						setSelectedCategory('All');
+						navigate('/products');
+					}}>
+					Products
 				</Link>
-				<Tooltip title='Go to Checkout' placement='bottom'>
-					<IconButton>
-						<Badge badgeContent={cartItemsIds.length} color='error'>
-							<ShoppingCartIcon
-								fontSize={isSmallScreen ? 'medium' : 'large'}
-								sx={{ color: theme === 'Light' ? null : 'white' }}
-								onClick={() => {
-									navigate('/checkout');
-								}}
-							/>
-						</Badge>
-					</IconButton>
-				</Tooltip>
-				<Tooltip title={theme === 'Light' ? 'Dark Mode' : 'Light Mode'} placement='bottom'>
-					{theme === 'Light' ? (
-						<IconButton onClick={() => toggleTheme()}>
-							<DarkModeOutlined />
+				<Box>
+					<Tooltip title={theme === 'Light' ? 'Dark Mode' : 'Light Mode'} placement='bottom'>
+						{theme === 'Light' ? (
+							<IconButton onClick={() => toggleTheme()}>
+								<DarkModeOutlined />
+							</IconButton>
+						) : (
+							<IconButton onClick={() => toggleTheme()}>
+								<LightModeRounded sx={{ color: 'white' }} />
+							</IconButton>
+						)}
+					</Tooltip>
+					<Tooltip title='Go to Checkout' placement='bottom'>
+						<IconButton>
+							<Badge badgeContent={cartItemsIds.length} color='error'>
+								<ShoppingCartIcon
+									fontSize={isSmallScreen ? 'medium' : 'large'}
+									sx={{ color: theme === 'Light' ? null : 'white' }}
+									onClick={() => {
+										navigate('/checkout');
+									}}
+								/>
+							</Badge>
 						</IconButton>
-					) : (
-						<IconButton onClick={() => toggleTheme()}>
-							<LightModeRounded sx={{ color: 'white' }} />
-						</IconButton>
-					)}
-				</Tooltip>
+					</Tooltip>
+				</Box>
 			</AppBar>
 		</Box>
 	);

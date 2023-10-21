@@ -23,6 +23,9 @@ const Footer = () => {
 				sx={{ color: theme === 'Light' ? 'coral' : 'white' }}>
 				Balci Store@React-TS
 			</Typography>
+			<Link to='/about' style={{ textDecoration: 'none', color: theme === 'Light' ? 'coral' : 'white' }}>
+				About Us
+			</Link>
 			<Link to='/contact-us' style={{ textDecoration: 'none', color: theme === 'Light' ? 'coral' : 'white' }}>
 				Contact Us
 			</Link>
